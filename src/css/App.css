@@ -1,5 +1,15 @@
-.App {
-  text-align: center;
+#root {
+  width: 1200px;
+  margin: 0 auto ;
+}
+
+.parking select,
+.parking button {
+  margin: 0 10px;
+}
+
+.free-slots {
+  margin-bottom: 20px;
 }
 
 .App-logo {
