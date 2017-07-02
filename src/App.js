@@ -8,30 +8,43 @@ class ParkingSystem extends Component {
 
         this.state = {
             parkings: [],
-            parkingBlank:{
-                id: null,
-                carTypes: [],
-                slots: {}
+            parkingScheme: [],
+            defaultParkingScheme: {
+                Sedan: 15,
+                Track: 10,
+                Disabled: 5,
             }
         }
 
     };
 
+    // Create new parking
     createParking = () => {
-        let newParking = Object.assign({}, this.state.parkingBlank);
         let parkings = Object.assign({}, this.state.parkings);
-        newParking.id = this.getNewParkingID();
-        parkings[newParking.id] = newParking;
+        let parkingScheme = Object.assign({}, this.state.parkingScheme);
+        let defaultParkingScheme = Object.assign({}, this.state.defaultParkingScheme);
+        let newId = this.getNewParkingID();
+        parkings[newId] = newId;
+        parkingScheme[newId] = defaultParkingScheme;
         this.setState({
-            parkings: parkings
+            parkings: parkings,
+            parkingScheme: parkingScheme
         });
     };
 
+    // Get available parkings
     getParkingInstances = () => {
         let {parkings} = this.state;
         let parking = [];
         for(let parkingId in parkings) {
-            parking.push(<Parking key={parkingId} parking={parkings[parkingId]} />);
+            parking.push(
+                <Parking key={parkingId}
+                         parkingId={parkingId}
+                         addCarType={() => {this.addCarType(parkingId)}}
+                         getParkingScheme={() => {this.getParkingScheme(parkingId)}}
+                         scheme={this.state.parkingScheme[parkingId]}
+                />
+            );
         }
         return parking;
     };
@@ -46,16 +59,20 @@ class ParkingSystem extends Component {
         return ids.length ? Math.max.apply(null, ids) + 1 : 1;
     };
 
+    // Delete parking instance by ID
     deleteParking = () => {
         let numberInput = document.getElementById('parking-number');
         let parkingNumber = parseInt(numberInput.value, 10);
         let parkings = Object.assign({}, this.state.parkings);
+        let parkingScheme = Object.assign({}, this.state.parkingScheme);
 
         if(parkingNumber) {
             if(parkings[parkingNumber]) {
                 delete parkings[parkingNumber];
+                delete parkingScheme[parkingNumber];
                 this.setState({
-                    parkings: parkings
+                    parkings: parkings,
+                    parkingScheme: parkingScheme
                 });
                 numberInput.value = '';
             } else {
@@ -63,8 +80,48 @@ class ParkingSystem extends Component {
             }
         } else {
             alert('Enter valid Parking number');
-            return;
         }
+    };
+
+    // Add new car type and associated slots
+    addCarType = (parkingId) => {
+        let carTypeInput = document.getElementById('cart-type' + parkingId);
+        let slotsCountInput = document.getElementById('slots-count' + parkingId);
+        let parkingScheme = Object.assign({}, this.state.parkingScheme);
+        let carType, slotsCount = '';
+
+        if(carTypeInput && slotsCountInput) {
+            if(!carTypeInput.value.length || !slotsCountInput.value.length) {
+                alert('Enter car type and slots count');
+            }
+            else if (Number(slotsCountInput.value) !== parseInt(slotsCountInput.value, 10)){
+                alert('Enter valid slots count')
+            } else {
+                carType = carTypeInput.value;
+                slotsCount = parseInt(slotsCountInput.value, 10);
+
+                if(!parkingScheme[parkingId]) {
+                    parkingScheme[parkingId] = {};
+                }
+
+                if(parkingScheme[parkingId][carType]) {
+                    alert('This cart type already exist');
+                } else {
+                    parkingScheme[parkingId][carType] = slotsCount;
+                }
+
+                this.setState({
+                    parkingScheme: parkingScheme
+                });
+            }
+        }
+        return false;
+    };
+
+    // Get all car types with associated slots
+    getParkingScheme = (parkingId) => {
+        let parkingScheme = Object.assign({}, this.state.parkingScheme);
+        return parkingScheme[parkingId];
     };
 
     render() {
