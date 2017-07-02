@@ -10,9 +10,9 @@ class ParkingSystem extends Component {
             parkings: [],
             parkingScheme: [],
             defaultParkingScheme: {
-                Sedan: 15,
-                Track: 10,
-                Disabled: 5,
+                Sedan: {free: 15, busy: 4},
+                Track: {free: 10, busy: 0},
+                Disabled: {free: 5, busy: 3},
             }
         }
 
@@ -107,7 +107,9 @@ class ParkingSystem extends Component {
                 if(parkingScheme[parkingId][carType]) {
                     alert('This cart type already exist');
                 } else {
-                    parkingScheme[parkingId][carType] = slotsCount;
+                    parkingScheme[parkingId][carType] = {};
+                    parkingScheme[parkingId][carType].free = slotsCount;
+                    parkingScheme[parkingId][carType].busy = 0;
                 }
 
                 this.setState({

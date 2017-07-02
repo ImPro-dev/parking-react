@@ -108,5 +108,17 @@ button:hover {
         font-size: 10px;
         text-align: center;
         padding: 4px;
+
+        strong {
+            color: #777;
+            font-weight: normal;
+            display: block;
+            padding-top: 5px;
+        }
+
+        &.busy {
+          opacity: 0.3;
+          cursor: not-allowed;
+        }
     }
 }

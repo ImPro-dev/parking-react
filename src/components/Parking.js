@@ -12,6 +12,13 @@ class Parking extends Component {
 
     };
 
+    componentWillMount  = () => {
+        let scheme = this.props.scheme;
+        this.setState({
+            test: 2
+        })
+    };
+
     getParkingSchemeForm = (parkingId) => {
         return (
             <div className="scheme-form">
@@ -38,7 +45,7 @@ class Parking extends Component {
                 <tr key={count}>
                     <td>{count}</td>
                     <td>{carType}</td>
-                    <td>{scheme[carType]}</td>
+                    <td>{scheme[carType].free}</td>
                 </tr>
             );
             count++;
@@ -65,9 +72,15 @@ class Parking extends Component {
     getVisualParking = () => {
         let slots = [];
         for(let carType in this.props.scheme) {
-            for(let i = 1; i <= this.props.scheme[carType]; i++) {
+            let status = 'free';
+            let sumSlots = this.props.scheme[carType].free + this.props.scheme[carType].busy;
+            for(let i = 1; i <= sumSlots; i++) {
+                status = (i > this.props.scheme[carType].free) ? 'busy' : status;
                 slots.push(
-                    <span key={carType + i} className={carType}>{carType + ' ' + i}</span>
+                    <span key={carType + i} className={carType + ' ' + status}>
+                        {carType + ' ' + i}
+                        <strong>&lt;{status}&gt;</strong>
+                    </span>
                 )
             }
             slots.push(<div key={carType}><br /></div>);
@@ -78,8 +91,9 @@ class Parking extends Component {
     render() {
         return (
             <div className="parking">
-                <h3>{'Parking #' + this.props.parkingId}</h3>
+                <h2>{'Parking #' + this.props.parkingId}</h2>
                 <div className="parking-scheme">
+                    <h4>Parking Scheme</h4>
                     {this.getParkingSchemeForm(this.props.parkingId)}
                     {this.getParkingSchemeTable()}
                 </div>

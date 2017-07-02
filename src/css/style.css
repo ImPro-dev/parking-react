@@ -78,5 +78,13 @@ button:hover {
     font-size: 10px;
     text-align: center;
     padding: 4px; }
+    .visual-scheme > span strong {
+      color: #777;
+      font-weight: normal;
+      display: block;
+      padding-top: 5px; }
+    .visual-scheme > span.busy {
+      opacity: 0.3;
+      cursor: not-allowed; }
 
 /*# sourceMappingURL=style.css.map */
