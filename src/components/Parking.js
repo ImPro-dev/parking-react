@@ -62,6 +62,18 @@ class Parking extends Component {
         );
     };
 
+    getVisualParking = () => {
+        let slots = [];
+        for(let carType in this.props.scheme) {
+            for(let i = 1; i <= this.props.scheme[carType]; i++) {
+                slots.push(
+                    <span key={carType + i} className={carType}>{carType + ' ' + i}</span>
+                )
+            }
+            slots.push(<div key={carType}><br /></div>);
+        }
+        return slots
+    };
 
     render() {
         return (
@@ -76,6 +88,7 @@ class Parking extends Component {
                 </div>
                 <div className="visual-scheme">
                     <h4>Visual Scheme</h4>
+                    {this.getVisualParking()}
                 </div>
             </div>
         );
