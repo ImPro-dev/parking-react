@@ -38,8 +38,11 @@ button:hover {
     margin-right: 10px; }
 
 .parking-scheme {
-  width: 300px;
-  float: left; }
+  width: 270px;
+  float: left;
+  padding-right: 10px;
+  margin-right: 10px;
+  border-right: solid 1px #ccc; }
   .parking-scheme .scheme-form {
     margin-bottom: 20px; }
     .parking-scheme .scheme-form > span {
@@ -56,16 +59,28 @@ button:hover {
   .parking-scheme .scheme-table td, .parking-scheme .scheme-table th {
     border: solid 1px #ccc;
     padding: 3px 6px; }
-  .parking-scheme .scheme-table tr td:last-child {
+  .parking-scheme .scheme-table tr td {
     text-align: center; }
 
 .cars {
   width: 250px;
   float: left; }
+  .cars .accept-car-form {
+    margin-bottom: 20px; }
+    .cars .accept-car-form > span {
+      display: inline-block;
+      margin-right: 10px; }
+    .cars .accept-car-form label {
+      font-size: 12px;
+      display: block; }
+    .cars .accept-car-form select {
+      width: 145px; }
 
 .visual-scheme {
   float: left;
-  width: 600px; }
+  width: 600px;
+  border-left: solid 1px #ccc;
+  padding-left: 15px; }
   .visual-scheme > span {
     display: inline-block;
     border: solid 1px #aaa;

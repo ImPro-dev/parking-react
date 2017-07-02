@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import Car from './Car';
 
 class Parking extends Component {
 
@@ -10,13 +10,6 @@ class Parking extends Component {
 
         }
 
-    };
-
-    componentWillMount  = () => {
-        let scheme = this.props.scheme;
-        this.setState({
-            test: 2
-        })
     };
 
     getParkingSchemeForm = (parkingId) => {
@@ -45,7 +38,9 @@ class Parking extends Component {
                 <tr key={count}>
                     <td>{count}</td>
                     <td>{carType}</td>
+                    <td>{scheme[carType].free + scheme[carType].busy}</td>
                     <td>{scheme[carType].free}</td>
+                    <td>{scheme[carType].busy}</td>
                 </tr>
             );
             count++;
@@ -59,6 +54,8 @@ class Parking extends Component {
                         <th>#</th>
                         <th>Cart Type</th>
                         <th>Slots Count</th>
+                        <th>Free</th>
+                        <th>Busy</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -88,6 +85,64 @@ class Parking extends Component {
         return slots
     };
 
+    getCarAcceptForm = () => {
+        let carTypes = [];
+        for(let carType in this.props.scheme) {
+            carTypes.push(
+                <option key={carType} value={carType}>{carType}</option>
+            )
+        }
+
+        return (
+            <div className="accept-car-form">
+                <span>
+                    <label>Car type:</label>
+                    <select>
+                        <option>select...</option>
+                        {carTypes}
+                    </select>
+                </span>
+                <button onClick={() => this.acceptCar()} type="button">Accept Car</button>
+            </div>
+        );
+    };
+
+    acceptCar = () => {
+
+    };
+
+    getCars() {
+        let scheme = this.props.scheme;
+        let cars = [];
+        let count = 1;
+        for(let carType in scheme) {
+            cars.push(
+                <tr key={count}>
+
+                </tr>
+            );
+            count++;
+        }
+
+        return (
+            <div className="cars-table">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Cart Type</th>
+                        <th>CarID</th>
+                        <th>Slot</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {cars}
+                    </tbody>
+                </table>
+            </div>
+        )
+    };
+
     render() {
         return (
             <div className="parking">
@@ -99,6 +154,8 @@ class Parking extends Component {
                 </div>
                 <div className="cars">
                     <h4>Cars</h4>
+                    {this.getCarAcceptForm()}
+                    {this.getCars()}
                 </div>
                 <div className="visual-scheme">
                     <h4>Visual Scheme</h4>

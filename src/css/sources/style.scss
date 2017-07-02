@@ -50,8 +50,11 @@ button:hover {
 }
 
 .parking-scheme {
-    width: 300px;
+    width: 270px;
     float: left;
+    padding-right: 10px;
+    margin-right: 10px;
+    border-right: solid 1px #ccc;
 
     .scheme-form {
         margin-bottom: 20px;
@@ -80,7 +83,7 @@ button:hover {
             border: solid 1px #ccc;
             padding: 3px 6px;
         }
-        tr td:last-child {
+        tr td {
             text-align: center;
         }
     }
@@ -90,11 +93,31 @@ button:hover {
     width: 250px;
     float: left;
 
+    .accept-car-form {
+        margin-bottom: 20px;
+
+        > span {
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        label {
+            font-size: 12px;
+            display: block;
+        }
+
+        select {
+            width: 145px;
+        }
+    }
+
 }
 
 .visual-scheme{
-    float: left;;
+    float: left;
     width: 600px;
+    border-left: solid 1px #ccc;
+    padding-left: 15px;
 
     > span {
         display: inline-block;

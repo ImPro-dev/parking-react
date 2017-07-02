@@ -9,9 +9,10 @@ class ParkingSystem extends Component {
         this.state = {
             parkings: [],
             parkingScheme: [],
+            cars: [],
             defaultParkingScheme: {
                 Sedan: {free: 15, busy: 4},
-                Track: {free: 10, busy: 0},
+                Track: {free: 10, busy: 1},
                 Disabled: {free: 5, busy: 3},
             }
         }
@@ -115,6 +116,9 @@ class ParkingSystem extends Component {
                 this.setState({
                     parkingScheme: parkingScheme
                 });
+
+                carTypeInput.value = '';
+                slotsCountInput.value = '';
             }
         }
         return false;
